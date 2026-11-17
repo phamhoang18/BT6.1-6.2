@@ -10,7 +10,7 @@
 
 ## MỤC ẢNH KẾT QUẢ CHỨC NĂNG
 ### 1. Màn hình Chính / Tổng quan hệ thống:
-![Màn hình chính](screenshots/Bài_6.1_GDC.png)
+![Màn hình chính](./screenshots/Bài_6.1_GDC.png)
 ![Màn hình chính](screenshots/Bài_6.1_GDC(1).png)
 ![Màn hình chính](screenshots/Bài_6.1_GDC(2).png)
 
