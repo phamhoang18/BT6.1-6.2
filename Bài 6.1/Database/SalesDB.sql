@@ -1,0 +1,57 @@
+USE master;
+GO
+
+IF EXISTS (SELECT * FROM sys.databases WHERE name = 'SalesDB')
+BEGIN
+    ALTER DATABASE SalesDB SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    DROP DATABASE SalesDB;
+END
+GO
+
+CREATE DATABASE SalesDB;
+GO
+USE SalesDB;
+GO
+
+CREATE TABLE NhanVien (
+    MaNV INT IDENTITY(1,1) PRIMARY KEY,
+    TenNV NVARCHAR(100) NOT NULL,
+    SoDienThoai VARCHAR(15) UNIQUE,
+    ChucVu NVARCHAR(50)
+);
+
+CREATE TABLE KhachHang (
+    MaKH INT IDENTITY(1,1) PRIMARY KEY,
+    TenKH NVARCHAR(100) NOT NULL,
+    DienThoai VARCHAR(15) UNIQUE,
+    DiemTichLuy INT DEFAULT 0
+);
+
+CREATE TABLE SanPham (
+    MaSP VARCHAR(20) PRIMARY KEY,
+    TenSP NVARCHAR(150) NOT NULL,
+    GiaBan DECIMAL(18,2) CHECK (GiaBan > 0),
+    SoLuongTon INT CHECK (SoLuongTon >= 0)
+);
+
+CREATE TABLE HoaDon (
+    MaHD INT IDENTITY(1,1) PRIMARY KEY,
+    NgayLap DATETIME DEFAULT GETDATE(),
+    MaNV INT FOREIGN KEY REFERENCES NhanVien(MaNV),
+    MaKH INT NULL FOREIGN KEY REFERENCES KhachHang(MaKH),
+    TongTien DECIMAL(18,2)
+);
+
+CREATE TABLE ChiTietHoaDon (
+    MaHD INT FOREIGN KEY REFERENCES HoaDon(MaHD),
+    MaSP VARCHAR(20) FOREIGN KEY REFERENCES SanPham(MaSP),
+    SoLuong INT CHECK (SoLuong > 0),
+    DonGia DECIMAL(18,2),
+    PRIMARY KEY (MaHD, MaSP)
+);
+GO
+
+INSERT INTO NhanVien VALUES (N'Nguyễn Văn An', '0901112223', N'Thu ngân'), (N'Trần Thị Bình', '0904445556', N'Quản lý');
+INSERT INTO KhachHang VALUES (N '01','Lê Hoàng Nam', '0912345678', 10), (N'Phạm Minh Thư', '0987654321', 5);
+INSERT INTO SanPham VALUES ('SP01', N'Sữa tươi Vinamilk 1L', 35000, 100), ('SP02', N'Mì Hảo Hảo Tôm Chua Cay', 4500, 200), ('SP03', N'Nước ngọt Coca Cola 1.5L', 18000, 50);
+GO
