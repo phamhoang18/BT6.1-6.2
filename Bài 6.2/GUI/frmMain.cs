@@ -28,7 +28,6 @@ namespace HRM_Payroll_System.GUI
         {
             this.Load += FrmMain_Load;
 
-            // Tab 1: Nhân sự
             btnThem.Click += BtnThem_Click;
             btnSua.Click += BtnSua_Click;
             btnChuyenPB.Click += BtnChuyenPB_Click;
@@ -37,11 +36,9 @@ namespace HRM_Payroll_System.GUI
             btnTimKiem.Click += BtnTimKiem_Click;
             dgvNhanVien.CellClick += DgvNhanVien_CellClick;
 
-            // Tab 2: Chấm công (Disconnected Model)
             btnTaiChamCong.Click += BtnTaiChamCong_Click;
             btnLuuChamCong.Click += BtnLuuChamCong_Click;
 
-            // Tab 3: Tính lương & Chốt lương (SqlTransaction)
             btnTinhLuong.Click += BtnTinhLuong_Click;
             btnChotLuong.Click += BtnChotLuong_Click;
         }
@@ -60,12 +57,10 @@ namespace HRM_Payroll_System.GUI
         {
             var listPB = _phongBanBUS.GetAll();
 
-            // ComboBox nhập liệu
             cboPhongBan.DataSource = new List<PhongBanDTO>(listPB);
             cboPhongBan.DisplayMember = "TenPB";
             cboPhongBan.ValueMember = "MaPB";
 
-            // ComboBox tìm kiếm (thêm lựa chọn "Tất cả phòng ban")
             var listSearch = new List<PhongBanDTO> { new PhongBanDTO { MaPB = 0, TenPB = "-- Tất cả phòng ban --" } };
             listSearch.AddRange(listPB);
             cboSearchPB.DataSource = listSearch;
@@ -245,7 +240,6 @@ namespace HRM_Payroll_System.GUI
                 _dtChamCongHienTai = _chamCongBUS.GetChamCongByThang(thangNam);
                 dgvChamCong.DataSource = _dtChamCongHienTai;
 
-                // Cấu hình hiển thị & quyền chỉnh sửa trên DataGridView
                 dgvChamCong.Columns["MaCong"].Visible = false;
                 dgvChamCong.Columns["DaChot"].Visible = false;
 
@@ -267,7 +261,6 @@ namespace HRM_Payroll_System.GUI
                 dgvChamCong.Columns["SoGioOT"].HeaderText = "Số giờ OT";
                 dgvChamCong.Columns["SoGioOT"].DisplayIndex = 4;
 
-                // Kiểm tra trạng thái đã chốt lương hay chưa để khóa lưới
                 bool daChot = _dtChamCongHienTai.Rows.Count > 0 && Convert.ToBoolean(_dtChamCongHienTai.Rows[0]["DaChot"]);
                 if (daChot)
                 {
@@ -297,7 +290,6 @@ namespace HRM_Payroll_System.GUI
         {
             try
             {
-                // Kiểm tra dữ liệu có được tải chưa
                 if (_dtChamCongHienTai == null || _dtChamCongHienTai.Rows.Count == 0)
                 {
                     MessageBox.Show("Vui lòng tải dữ liệu chấm công trước khi lưu!", "Cảnh báo",
@@ -305,7 +297,6 @@ namespace HRM_Payroll_System.GUI
                     return;
                 }
 
-                // Kết thúc chỉnh sửa ô hiện tại trên lưới để đẩy dữ liệu vào DataTable
                 dgvChamCong.EndEdit();
 
                 int rowsAffected = _chamCongBUS.LuuChamCong(_dtChamCongHienTai);
@@ -331,7 +322,6 @@ namespace HRM_Payroll_System.GUI
             {
                 string thangNam = dtpThangLuong.Value.ToString("MM/yyyy");
 
-                // Ưu tiên lấy bảng lương đã chốt; nếu chưa chốt thì tính dự kiến
                 var listDaChot = _luongBUS.GetBangLuongDaChot(thangNam);
                 List<BangLuongDTO> dataHienThi;
 
