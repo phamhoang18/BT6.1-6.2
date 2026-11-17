@@ -23,10 +23,9 @@
 ### 3. Màn hình Thực thi Nghiệp vụ chính (Lập Hóa đơn / Bán hàng / Chấm công / Đặt phòng):
 ![Màn hình Nghiệp vụ](screenshots/Bài_6.1_add.png)
 ![Màn hình Nghiệp vụ](screenshots/Bài_6.1_tt.png)
-![Màn hình Nghiệp vụ](images/Tran3.png)
 
 ### 4. Màn hình Báo cáo - Thống kê:
-![Màn hình Thống kê](screenshots/update(1).png)
+![Màn hình Thống kê](screenshots/Bài_6.1_update(1)).png)
 
 ### 5. Minh họa An toàn Dữ liệu (Phòng chống SQL Injection / Báo lỗi Transaction Rollback):
 ![Minh họa Xử lý lỗi](screenshots/Bài_6.1_error(1).png)
