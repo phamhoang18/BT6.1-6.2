@@ -11,8 +11,8 @@ BÀI 6.2: HỆ THỐNG QUẢN LÝ NHÂN SỰ & TÍNH LƯƠNG (HRM & PAYROLL SYST
 ## MỤC ẢNH KẾT QUẢ CHỨC NĂNG
 ### 1. Màn hình Chính / Tổng quan hệ thống:
 ![Màn hình chính](screenshots/Bài_6.2_GDC.png)
-![Màn hình chính](screenshots/Bài_6.2_GDC(1).png)
-![Màn hình chính](screenshots/Bài_6.2_GDC(2).png)
+![Màn hình chính](screenshots/Bài_6.2_GDC2.png)
+![Màn hình chính](screenshots/Bài_6.2_GDC3.png)
 
 ### 2. Màn hình Quản lý Danh mục (CRUD - Thêm/Sửa/Xóa):
 ![Màn hình CRUD](screenshots/Bài_6.2_add.png)
