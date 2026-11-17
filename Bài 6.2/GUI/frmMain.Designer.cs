@@ -12,7 +12,6 @@ namespace HRM_Payroll_System.GUI
         private TabPage tabChamCong;
         private TabPage tabTinhLuong;
 
-        // Controls Tab 1: Nhân sự
         private GroupBox grpThongTinNV;
         private Label lblMaNV, lblHoTen, lblNgaySinh, lblCCCD, lblPhongBan, lblLuongCB, lblHeSo;
         private TextBox txtMaNV, txtHoTen, txtCCCD, txtLuongCB, txtHeSo;
@@ -27,14 +26,12 @@ namespace HRM_Payroll_System.GUI
         private Button btnTimKiem;
         private DataGridView dgvNhanVien;
 
-        // Controls Tab 2: Chấm công
         private Panel pnlTopCC;
         private Label lblThangCC, lblTrangThaiCC;
         private DateTimePicker dtpThangCC;
         private Button btnTaiChamCong, btnLuuChamCong;
         private DataGridView dgvChamCong;
 
-        // Controls Tab 3: Tính lương
         private Panel pnlTopLuong;
         private Label lblThangLuong, lblTongQuyLuong;
         private DateTimePicker dtpThangLuong;
@@ -54,7 +51,6 @@ namespace HRM_Payroll_System.GUI
             this.tabChamCong = new TabPage();
             this.tabTinhLuong = new TabPage();
 
-            // ================= TAB 1: NHÂN SỰ =================
             this.grpThongTinNV = new GroupBox();
             this.lblMaNV = new Label(); this.txtMaNV = new TextBox();
             this.lblHoTen = new Label(); this.txtHoTen = new TextBox();
@@ -73,7 +69,6 @@ namespace HRM_Payroll_System.GUI
             this.btnTimKiem = new Button();
             this.dgvNhanVien = new DataGridView();
 
-            // GroupBox Thông tin NV
             this.grpThongTinNV.Text = "Thông tin hồ sơ nhân viên";
             this.grpThongTinNV.Location = new Point(12, 10);
             this.grpThongTinNV.Size = new Size(960, 165);
@@ -111,7 +106,6 @@ namespace HRM_Payroll_System.GUI
                 lblHeSo, txtHeSo, btnThem, btnSua, btnChuyenPB, btnXoa, btnLamMoi
             });
 
-            // GroupBox Tìm kiếm
             this.grpTimKiem.Text = "Tra cứu nhân sự";
             this.grpTimKiem.Location = new Point(12, 185);
             this.grpTimKiem.Size = new Size(960, 65);
@@ -126,7 +120,6 @@ namespace HRM_Payroll_System.GUI
 
             this.grpTimKiem.Controls.AddRange(new Control[] { lblSearchKey, txtSearchKey, lblSearchPB, cboSearchPB, btnTimKiem });
 
-            // DataGridView Nhân viên
             this.dgvNhanVien.Location = new Point(12, 260);
             this.dgvNhanVien.Size = new Size(960, 320);
             this.dgvNhanVien.AllowUserToAddRows = false;
@@ -137,7 +130,6 @@ namespace HRM_Payroll_System.GUI
             this.tabNhanSu.Text = "1. Quản lý Hồ sơ Nhân sự";
             this.tabNhanSu.Controls.AddRange(new Control[] { grpThongTinNV, grpTimKiem, dgvNhanVien });
 
-            // ================= TAB 2: CHẤM CÔNG =================
             this.pnlTopCC = new Panel();
             this.lblThangCC = new Label();
             this.dtpThangCC = new DateTimePicker();
@@ -171,7 +163,6 @@ namespace HRM_Payroll_System.GUI
             this.tabChamCong.Controls.Add(dgvChamCong);
             this.tabChamCong.Controls.Add(pnlTopCC);
 
-            // ================= TAB 3: TÍNH LƯƠNG =================
             this.pnlTopLuong = new Panel();
             this.lblThangLuong = new Label();
             this.dtpThangLuong = new DateTimePicker();
@@ -206,7 +197,6 @@ namespace HRM_Payroll_System.GUI
             this.tabTinhLuong.Controls.Add(dgvBangLuong);
             this.tabTinhLuong.Controls.Add(pnlTopLuong);
 
-            // ================= FORM MAIN =================
             this.tabMain.Dock = DockStyle.Fill;
             this.tabMain.Controls.AddRange(new Control[] { tabNhanSu, tabChamCong, tabTinhLuong });
 
