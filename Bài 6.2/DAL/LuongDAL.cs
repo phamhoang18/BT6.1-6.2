@@ -8,7 +8,6 @@ namespace HRM_Payroll_System.DAL
 {
     public class LuongDAL
     {
-        // Tính toán xem trước bảng lương từ dữ liệu chấm công hiện tại
         public List<BangLuongDTO> TinhLuongDuKien(string thangNam)
         {
             List<BangLuongDTO> list = new List<BangLuongDTO>();
@@ -49,7 +48,6 @@ namespace HRM_Payroll_System.DAL
             return list;
         }
 
-        // Lấy bảng lương đã chốt trong CSDL
         public List<BangLuongDTO> GetBangLuongDaChot(string thangNam)
         {
             List<BangLuongDTO> list = new List<BangLuongDTO>();
@@ -90,7 +88,6 @@ namespace HRM_Payroll_System.DAL
             return list;
         }
 
-        // Chốt lương tháng sử dụng SqlTransaction: Ghi BangLuong + Khóa BangChamCong
         public bool ChotLuongThang(string thangNam, List<BangLuongDTO> danhSachLuong)
         {
             using (SqlConnection conn = DBConnection.GetConnection())
@@ -100,7 +97,6 @@ namespace HRM_Payroll_System.DAL
 
                 try
                 {
-                    // 1. Kiểm tra xem tháng này đã chốt chưa
                     string checkQuery = "SELECT COUNT(*) FROM BangLuong WHERE ThangNam = @ThangNam";
                     using (SqlCommand cmdCheck = new SqlCommand(checkQuery, conn, transaction))
                     {
@@ -112,7 +108,6 @@ namespace HRM_Payroll_System.DAL
                         }
                     }
 
-                    // 2. Ghi nhận chi tiết lương từng nhân viên vào BangLuong
                     string insertLuongQuery = @"
                         INSERT INTO BangLuong (MaNV, ThangNam, ThucLinh) 
                         VALUES (@MaNV, @ThangNam, @ThucLinh)";
@@ -128,7 +123,6 @@ namespace HRM_Payroll_System.DAL
                         }
                     }
 
-                    // 3. Khóa dữ liệu chấm công của tháng (DaChot = 1)
                     string lockChamCongQuery = @"
                         UPDATE BangChamCong 
                         SET DaChot = 1 
@@ -140,13 +134,11 @@ namespace HRM_Payroll_System.DAL
                         cmdLock.ExecuteNonQuery();
                     }
 
-                    // Hoàn tất giao dịch
                     transaction.Commit();
                     return true;
                 }
                 catch
                 {
-                    // Có bất kỳ lỗi nào -> Rollback toàn bộ
                     transaction.Rollback();
                     throw;
                 }
