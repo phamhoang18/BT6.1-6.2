@@ -15,13 +15,11 @@ namespace HRM_Payroll_System.BUS
 
         public int LuuChamCong(DataTable dtChamCong)
         {
-            // Kiểm tra null trước khi sử dụng
             if (dtChamCong == null)
             {
                 throw new Exception("Vui lòng tải dữ liệu chấm công trước khi lưu!");
             }
 
-            // Kiểm tra ràng buộc nghiệp vụ trước khi đẩy xuống DAL
             foreach (DataRow row in dtChamCong.Rows)
             {
                 if (row.RowState == DataRowState.Deleted) continue;
