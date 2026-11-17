@@ -10,7 +10,6 @@ namespace HRM_Payroll_System.DAL
         private SqlCommandBuilder _cmdBuilder;
         private DataTable _dtChamCong;
 
-        // Khởi tạo danh sách chấm công mặc định cho toàn bộ nhân viên nếu tháng đó chưa có
         public void KhoiTaoChamCongThang(string thangNam)
         {
             string query = @"
@@ -28,12 +27,10 @@ namespace HRM_Payroll_System.DAL
             }
         }
 
-        // Nạp dữ liệu bằng Disconnected Model (SqlDataAdapter -> DataTable)
         public DataTable GetChamCongByThang(string thangNam)
         {
             KhoiTaoChamCongThang(thangNam);
 
-            // Query 1 bảng duy nhất để SqlCommandBuilder tự sinh lệnh Update chuẩn xác
             string selectQuery = @"
                 SELECT MaCong, MaNV, ThangNam, SoNgayCong, SoGioOT, DaChot 
                 FROM BangChamCong 
@@ -44,12 +41,11 @@ namespace HRM_Payroll_System.DAL
             selectCmd.Parameters.Add("@ThangNam", SqlDbType.VarChar, 7).Value = thangNam;
 
             _adapter = new SqlDataAdapter(selectCmd);
-            _cmdBuilder = new SqlCommandBuilder(_adapter); // Tự động sinh Insert/Update/Delete Command
+            _cmdBuilder = new SqlCommandBuilder(_adapter); 
 
             _dtChamCong = new DataTable();
             _adapter.Fill(_dtChamCong);
 
-            // Ghép thêm cột HoTen từ bảng NhanVien để người dùng dễ nhìn trên DataGridView
             _dtChamCong.Columns.Add("HoTen", typeof(string));
             using (SqlCommand cmdName = new SqlCommand("SELECT MaNV, HoTen FROM NhanVien", conn))
             {
@@ -70,12 +66,10 @@ namespace HRM_Payroll_System.DAL
                 conn.Close();
             }
 
-            // Đưa toàn bộ DataRow về trạng thái Unchanged sau khi điền HoTen
             _dtChamCong.AcceptChanges();
             return _dtChamCong;
         }
 
-        // Đồng bộ toàn bộ thay đổi trên DataTable về SQL Server trong 1 thao tác
         public int LuuChamCongDisconnected()
         {
             if (_adapter == null || _dtChamCong == null) return 0;
